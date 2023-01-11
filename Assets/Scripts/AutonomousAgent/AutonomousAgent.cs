@@ -12,5 +12,10 @@ public class AutonomousAgent : Agent
         {
             Debug.DrawLine(transform.position,gameObject.transform.position);
         }
+        if(gameObjects.Length > 0)
+        {
+            Vector3 direction = (gameObjects[0].transform.position - transform.position).normalized;
+            Debug.DrawLine();
+        }
     }
 }

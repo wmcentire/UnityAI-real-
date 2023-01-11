@@ -19,19 +19,25 @@ public class Perception : MonoBehaviour
             {
                 continue;
             }
-            gameObjects.Add(collider.gameObject);
-
-            // calculate angle from transform forward vector to direction of game object 
-            Vector3 direction = (collider.transform.position - transform.position).normalized;
-
-            float cos = Vector3.Dot(transform.forward, direction);
-
-            //< angle is less than or equal to maximum angle
-            if () 
+            if (tagName == "" || collider.CompareTag(tagName))
             {
-                //< add collider to result >
 
+                gameObjects.Add(collider.gameObject);
+
+                // calculate angle from transform forward vector to direction of game object 
+                Vector3 direction = (collider.transform.position - transform.position).normalized;
+
+                float cos = Vector3.Dot(transform.forward, direction);
+                float angle = Mathf.Acos(cos) * Mathf.Rad2Deg;
+
+                //< angle is less than or equal to maximum angle
+                if (angle <= maxAngle) 
+                {
+                    //< add collider to result >
+                    gameObjects.Add((GameObject)collider.gameObject);
+                }
             }
+
         }
         return gameObjects.ToArray();
     }
