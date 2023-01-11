@@ -18,4 +18,10 @@ public static class Steering
         Vector3 force = CalculateSteering(agent, (target.transform.position - agent.transform.position));
         return force;
     }
+
+    public static Vector3 Flee(Agent agent, GameObject target)
+    {
+        Vector3 force = CalculateSteering(agent, (agent.transform.position - target.transform.position));
+        return force;
+    }
 }
