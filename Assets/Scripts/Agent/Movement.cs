@@ -19,7 +19,7 @@ public class Movement : MonoBehaviour
     {
         velocity += acceleration * Time.deltaTime;
         transform.position += velocity * Time.deltaTime;
-        velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+        velocity = Utilities.ClampMagnitude(velocity, minSpeed, maxSpeed);
 
         if (velocity.sqrMagnitude > 0.1f)
         {

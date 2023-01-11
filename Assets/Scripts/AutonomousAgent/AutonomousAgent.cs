@@ -14,7 +14,7 @@ public class AutonomousAgent : Agent
         }
         if(gameObjects.Length > 0)
         {
-            movement.ApplyForce(Steering.Seek(this, gameObjects[0]));
+            movement.ApplyForce(Steering.Seek(this, gameObjects[0]) * 1);
         }
         transform.position = Utilities.Wrap(transform.position, new Vector3(-10, -10, -10), new Vector3(10, 10, 10));
     }
