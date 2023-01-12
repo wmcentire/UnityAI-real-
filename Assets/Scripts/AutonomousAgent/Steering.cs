@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class Steering
-{
+{   
+    //solo
     public static Vector3 CalculateSteering(Agent agent, Vector3 direction)
     {
         Vector3 ndirection = direction.normalized;
@@ -41,5 +42,38 @@ public static class Steering
         Vector3 force = CalculateSteering(agent, forward + point);
 
         return force;
+    }
+    
+    //flocking
+    public static Vector3 Cohesion(Agent agent, GameObject[] neighbors)
+    {
+        // get center position of neighbors
+        Vector3 center = Vector3.zero;
+
+        foreach(GameObject neighbor in neighbors)
+        {
+            center += neighbor.transform.position;
+        }
+
+        center = center / neighbors.Length;
+
+        //steer towards center position of neighbors
+        Vector3 force = CalculateSteering(agent, center - agent.transform.position);
+
+        return force;
+    }
+
+    public static Vector3 Separation(Agent agent, GameObject[] neighbors, float radius)
+    {
+
+        //remove later
+        return Vector3.zero;
+    }
+
+    public static Vector3 Alignment(Agent agent, GameObject[] neighbors)
+    {
+
+        //remove later
+        return Vector3.zero;
     }
 }
