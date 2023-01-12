@@ -148,8 +148,9 @@ MonoBehaviour:
   movement: {fileID: 605469204193495148}
   flockPerception: {fileID: -6971516638844768257}
   cohesionWeight: 3
-  separationWeight: 0
-  alignmentWeight: 0
+  separationWeight: 3
+  alignmentWeight: 3
+  separationRadius: 5
   fleeWeight: 2
   seekWeight: 0
   wanderDistance: 1
