@@ -7,15 +7,18 @@ public class Spawner : MonoBehaviour
     public Agent[] agents;
     public LayerMask layerMask;
 
+    int index = 0;
+
     void Update()
     {
+        if(Input.GetKey(KeyCode.Alpha1)) index = 0;
+        if(Input.GetKey(KeyCode.Alpha2)) index = 1;
         if (Input.GetMouseButton(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, 100, layerMask))
             {
-                if(Input.GetKey(KeyCode.Alpha1)) Instantiate(agents[0], hitInfo.point, Quaternion.identity);
-                if(Input.GetKey(KeyCode.Alpha2)) Instantiate(agents[1], hitInfo.point, Quaternion.identity);
+                Instantiate(agents[index], hitInfo.point, Quaternion.identity);
             }
         }
     }
