@@ -115,7 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 5
   minSpeed: 5
-  maxForce: 5
+  maxForce: 10
 --- !u!114 &7683947355233766974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +145,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perception: {fileID: 7683947355233766974}
   movement: {fileID: 7683947355233766975}
+  fleeWeight: 0
+  seekWeight: 2
   wanderDistance: 1
   wanderRadius: 3
   wanderDisplacement: 5

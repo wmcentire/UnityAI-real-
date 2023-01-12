@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class AutonomousAgent : Agent
 {
+    [Range(0, 3)] public float fleeWeight;
+    [Range(0, 3)] public float seekWeight;
+
     public float wanderDistance = 1;
     [Range(3,9)]public float wanderRadius = 3;
     public float wanderDisplacement = 5;
@@ -15,14 +18,15 @@ public class AutonomousAgent : Agent
     void Update()
     {
         var gameObjects = perception.GetGameObjects();
-        //foreach (var gameObject in gameObjects)
-        //{
-        //    Debug.DrawLine(transform.position,gameObject.transform.position);
-        //}
-        //if(gameObjects.Length > 0)
-        //{
-        //    movement.ApplyForce(Steering.Seek(this, gameObjects[0]) * 1);
-        //}
+        foreach (var gameObject in gameObjects)
+        {
+            Debug.DrawLine(transform.position, gameObject.transform.position);
+        }
+        if (gameObjects.Length > 0)
+        {
+            movement.ApplyForce(Steering.Seek(this, gameObjects[0]) * seekWeight);
+            movement.ApplyForce(Steering.Flee(this, gameObjects[0]) * fleeWeight);
+        }
 
         if (movement.acceleration.sqrMagnitude <= movement.maxForce * 0.1f)
         {
