@@ -5,15 +5,7 @@ using UnityEngine;
 public class AutonomousAgent : Agent
 {
     public Perception flockPerception;
-
-    [Range(0, 3)] public float cohesionWeight;
-    [Range(0, 3)] public float separationWeight;
-    [Range(0, 3)] public float alignmentWeight;
-
-    [Range (0, 15)] public float separationRadius = 5;
-
-    [Range(0, 3)] public float fleeWeight;
-    [Range(0, 3)] public float seekWeight;
+    public AutonomousAgentData data;
 
 
     public float wanderDistance = 1;
