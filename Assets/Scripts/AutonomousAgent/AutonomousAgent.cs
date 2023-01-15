@@ -25,8 +25,8 @@ public class AutonomousAgent : Agent
         }
         if (gameObjects.Length > 0)
         {
-            movement.ApplyForce(Steering.Seek(this, gameObjects[0]) * seekWeight);
-            movement.ApplyForce(Steering.Flee(this, gameObjects[0]) * fleeWeight);
+            movement.ApplyForce(Steering.Seek(this, gameObjects[0]) * data.seekWeight);
+            movement.ApplyForce(Steering.Flee(this, gameObjects[0]) * data.fleeWeight);
         }
 
         gameObjects = flockPerception.GetGameObjects();
@@ -38,17 +38,17 @@ public class AutonomousAgent : Agent
 
         if (gameObjects.Length > 0)
         {
-            movement.ApplyForce(Steering.Cohesion(this,gameObjects) * cohesionWeight);
+            movement.ApplyForce(Steering.Cohesion(this,gameObjects) * data.cohesionWeight);
         }
 
         if (gameObjects.Length > 0)
         {
-            movement.ApplyForce(Steering.Separation(this, gameObjects, separationRadius) * separationWeight);
+            movement.ApplyForce(Steering.Separation(this, gameObjects, data.separationRadius) * data.separationWeight);
         }
 
         if (gameObjects.Length > 0)
         {
-            movement.ApplyForce(Steering.Alignment(this, gameObjects) * alignmentWeight);
+            movement.ApplyForce(Steering.Alignment(this, gameObjects) * data.alignmentWeight);
         }
 
         if (movement.acceleration.sqrMagnitude <= movement.maxForce * 0.1f)

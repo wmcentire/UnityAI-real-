@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public static class Steering
 {   
@@ -65,9 +68,23 @@ public static class Steering
 
     public static Vector3 Separation(Agent agent, GameObject[] neighbors, float radius)
     {
+        Vector3 separation = Vector3.zero;
+        // accumulate separation vector of neighbors 
+        foreach (GameObject neighbor in neighbors)
+        {
+            // create separation direction (neighbor position <- agent position) 
+            Vector3 direction = agent.transform.position - neighbor.transform.position;
+            if (direction.magnitude < radius) 
+  {
+                // scale direction by distance (closer = stronger) 
+                separation += direction / direction.sqrMagnitude;
+            }
+        }
 
-        //remove later
-        return Vector3.zero;
+        // steer toward separation 
+        Vector3 force = CalculateSteering(agent, separation);
+
+        return force;
     }
 
     public static Vector3 Alignment(Agent agent, GameObject[] neighbors)
