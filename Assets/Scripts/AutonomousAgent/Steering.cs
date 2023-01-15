@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using Unity.VisualScripting;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
@@ -89,8 +90,19 @@ public static class Steering
 
     public static Vector3 Alignment(Agent agent, GameObject[] neighbors)
     {
+        Vector3 averageVelocity = Vector3.zero;
+        // accumulate velocity of neighbors (velocity = forward direction movement) 
+        foreach (GameObject neighbor in neighbors)
+        {
+            // need to get the Agent component of the game object and then movement velocity 
+            averageVelocity += neighbor.GetComponent<Agent>().movement.velocity;
+        }
+        // calculate the average by dividing the average velocity by the number of neighbors
+        averageVelocity /= neighbors.Length;
 
-        //remove later
-        return Vector3.zero;
+        // steer towards the average velocity of the neighbors 
+         Vector3 force = CalculateSteering(agent, averageVelocity);
+
+        return force;
     }
 }
