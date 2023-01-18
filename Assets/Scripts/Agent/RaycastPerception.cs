@@ -1,18 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class RaycastPerception : MonoBehaviour
+public class RaycastPerception : Perception
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Transform raycastTransform;
+    [Range(2, 50)] public int numRaycast = 2;
 
-    // Update is called once per frame
-    void Update()
+    public override GameObject[] GetGameObjects()
     {
-        
+        List<GameObject> result = new List<GameObject>();
+
+        Vector3[] directions = Utilities.GetDirectionsInCircle(numRaycast, maxAngle);
+        foreach (Vector3 direction in directions)
+        {
+            // cast ray from transform position towards direction 
+
+            Ray ray = new Ray(raycastTransform.position, raycastTransform.rotation * direction);
+            if (Physics.Raycast(ray, out RaycastHit raycastHit, distance))
+            {
+                // don't perceive self 
+                if (raycastHit.collider.gameObject == gameObject) continue;
+                // check for tag match 
+
+                if (tagName == "" || raycastHit.collider.CompareTag(tagName))
+                {
+                    // add game object if ray hit and tag matches 
+                    result.Add(raycastHit.collider.gameObject);
+                }
+            }
+
+        }
+
+        // sort results by distance 
+        result.Sort(CompareDistance);
+
+        return result.ToArray();
     }
 }

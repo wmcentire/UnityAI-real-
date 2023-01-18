@@ -8,6 +8,7 @@ public class DistancePerception : Perception
     {
         List<GameObject> result = new List<GameObject>();
 
+        //Collider[] colliders = 
  
         return result.ToArray();
     }
