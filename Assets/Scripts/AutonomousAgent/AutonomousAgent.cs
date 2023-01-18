@@ -52,16 +52,17 @@ public class AutonomousAgent : Agent
             movement.ApplyForce(Steering.Alignment(this, gameObjects) * data.alignmentWeight);
         }
 
-        if (movement.acceleration.sqrMagnitude <= movement.maxForce * 0.1f)
-        {
-            movement.ApplyForce(Steering.Wander(this));
-        }
-        
         if (obstacleAvoidance.IsObstacleInFront())
         {
             Vector3 direction = obstacleAvoidance.GetOpenDirection();
             movement.ApplyForce(Steering.CalculateSteering(this, direction) * data.obstacleWeight);
         }
+
+        if (movement.acceleration.sqrMagnitude <= movement.maxForce * 0.1f)
+        {
+            movement.ApplyForce(Steering.Wander(this));
+        }
+        
         
         transform.position = Utilities.Wrap(transform.position, new Vector3(-20, -20, -20), new Vector3(20, 20, 20));
     }

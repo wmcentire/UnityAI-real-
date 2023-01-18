@@ -189,7 +189,7 @@ MonoBehaviour:
   size: 2
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!114 &4975345761063786903
 MonoBehaviour:
   m_ObjectHideFlags: 0
