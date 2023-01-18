@@ -56,13 +56,13 @@ public class AutonomousAgent : Agent
         {
             movement.ApplyForce(Steering.Wander(this));
         }
-        /*
+        
         if (obstacleAvoidance.IsObstacleInFront())
         {
             Vector3 direction = obstacleAvoidance.GetOpenDirection();
             movement.ApplyForce(Steering.CalculateSteering(this, direction) * data.obstacleWeight);
         }
-        */
+        
         transform.position = Utilities.Wrap(transform.position, new Vector3(-20, -20, -20), new Vector3(20, 20, 20));
     }
 }
