@@ -13,6 +13,18 @@ public class WayPointNavNode : NavNode
         
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, radius);
+
+        Gizmos.color = Color.green;
+        foreach (NavNode node in nodes)
+        {
+            Gizmos.DrawLine(transform.position, node.transform.position);
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         
