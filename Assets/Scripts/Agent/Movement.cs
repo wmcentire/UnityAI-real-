@@ -14,6 +14,11 @@ public class Movement : MonoBehaviour
     {
         acceleration += force;
     }
+    public void MoveTowards(Vector3 target)
+    {
+        Vector3 direction = (target - transform.position).normalized;
+        ApplyForce(direction * maxForce);
+    }
 
     void LateUpdate()
     {

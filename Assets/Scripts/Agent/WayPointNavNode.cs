@@ -10,7 +10,25 @@ public class WayPointNavNode : NavNode
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.gameObject.TryGetComponent<NavAgent>(out NavAgent navAgent))
+        {
+            if (navAgent.targetNode == this)
+            {
+                navAgent.targetNode = nodes[Random.Range(0, nodes.Length)];
+            }
+        }
+
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.TryGetComponent<NavAgent>(out NavAgent navAgent))
+        {
+            if (navAgent.targetNode == this)
+            {
+                navAgent.targetNode = nodes[Random.Range(0, nodes.Length)];
+            }
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -23,11 +41,6 @@ public class WayPointNavNode : NavNode
         {
             Gizmos.DrawLine(transform.position, node.transform.position);
         }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        
     }
 
     private void OnValidate()
