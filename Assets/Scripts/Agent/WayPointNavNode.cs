@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SphereCollider))]
 public class WayPointNavNode : NavNode
 {
     [SerializeField] private NavNode[] nodes;
@@ -15,5 +16,11 @@ public class WayPointNavNode : NavNode
     private void OnTriggerStay(Collider other)
     {
         
+    }
+
+    private void OnValidate()
+    {
+        //checks to see if object has sphere collider
+        GetComponent<SphereCollider>().radius = radius;
     }
 }
