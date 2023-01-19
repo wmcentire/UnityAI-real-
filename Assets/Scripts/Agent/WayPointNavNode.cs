@@ -6,7 +6,7 @@ using UnityEngine;
 public class WayPointNavNode : NavNode
 {
     [SerializeField] private NavNode[] nodes;
-    [SerializeField, Range(1, 10)] private float radius = 1;
+    [SerializeField, Range(0.5f, 10)] private float radius = 1;
 
     private void OnTriggerEnter(Collider other)
     {
