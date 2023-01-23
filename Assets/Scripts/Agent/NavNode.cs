@@ -4,8 +4,26 @@ using UnityEngine;
 
 public class NavNode : MonoBehaviour
 {
-    [SerializeField] private NavNode[] neighbors;
-    [SerializeField, Range(0.5f, 10)] private float radius = 1;
+    [SerializeField] public List<NavNode> neighbors;
+    [SerializeField, Range(0.5f, 10)] public float radius = 1;
+
+    private void OnValidate()
+    {
+        GetComponent<SphereCollider>().radius = radius;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, radius);
+
+        Gizmos.color = Color.green;
+        foreach (NavNode node in neighbors)
+        {
+            Gizmos.DrawLine(transform.position, node.transform.position);
+        }
+    }
+
     // Start is called before the first frame update
     public static NavNode[] GetNodes()
     {

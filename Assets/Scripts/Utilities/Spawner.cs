@@ -12,7 +12,6 @@ public class Spawner : MonoBehaviour
     void Update()
     {
         if(Input.GetKey(KeyCode.Tab)) index = ++index % agents.Length;
-        if(Input.GetKey(KeyCode.Alpha2)) index = 1;
         if (Input.GetMouseButtonDown(0) || (Input.GetMouseButton(0) && Input.GetKey(KeyCode.LeftControl)))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
