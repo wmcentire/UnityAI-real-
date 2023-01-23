@@ -108,13 +108,13 @@ public class NavNodeEditor : MonoBehaviour
         }
         if (navNode != null && navNode != activeNavNode)
         {
-            Gizmos.DrawIcon(navNode.transform.position + nodeCameraDirection, "nav_nodea.png", true, Color.green);
+            Gizmos.DrawIcon(navNode.transform.position + nodeCameraDirection, "nav_nodeA.png", true, Color.green);
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(navNode.gameObject.transform.position, navNode.radius);
         }
         if (activeNavNode != null)
         {
-            Gizmos.DrawIcon(activeNavNode.transform.position + activeCameraDirection, "nav.png", true, Color.red);
+            Gizmos.DrawIcon(activeNavNode.transform.position + activeCameraDirection, "nav_nodeB.png", true, Color.red);
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(activeNavNode.gameObject.transform.position, activeNavNode.radius * 1.5f);
             Gizmos.DrawLine(activeNavNode.gameObject.transform.position, position);
