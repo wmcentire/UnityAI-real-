@@ -5,8 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class WayPointNavNode : NavNode
 {
-    [SerializeField] private NavNode[] nodes;
-    [SerializeField, Range(0.5f, 10)] private float radius = 1;
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,7 +13,7 @@ public class WayPointNavNode : NavNode
         {
             if (navAgent.targetNode == this)
             {
-                navAgent.targetNode = nodes[Random.Range(0, nodes.Length)];
+                navAgent.targetNode = neighbors[Random.Range(0, neighbors.Length)];
             }
         }
 
@@ -26,7 +25,7 @@ public class WayPointNavNode : NavNode
         {
             if (navAgent.targetNode == this)
             {
-                navAgent.targetNode = nodes[Random.Range(0, nodes.Length)];
+                navAgent.targetNode = neighbors[Random.Range(0, neighbors.Length)];
             }
         }
     }
@@ -37,7 +36,7 @@ public class WayPointNavNode : NavNode
         Gizmos.DrawWireSphere(transform.position, radius);
 
         Gizmos.color = Color.green;
-        foreach (NavNode node in nodes)
+        foreach (NavNode node in neighbors)
         {
             Gizmos.DrawLine(transform.position, node.transform.position);
         }
