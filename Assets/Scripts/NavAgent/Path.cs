@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Priority_Queue;
+using Priority_Queue; // fixed!! yay
 using System.Linq;
 
 public static class Path
@@ -31,7 +31,7 @@ public static class Path
 				found = true;
 				break;
 			}
-
+			
 			foreach (var neighbor in node.neighbors)
 			{
 				// calculate cost to neighbor = node cost + distance to neighbor
