@@ -7,9 +7,15 @@ using UnityEngine.UIElements;
 public class NavPath : MonoBehaviour
 {
 	List<NavNode> path = new List<NavNode>();
-
+	public EndAction endAction = EndAction.RANDOM;
 	public NavNode startNode { get; set; }
 	public NavNode endNode { get; set; }
+	public enum EndAction
+	{
+		RANDOM,
+		PING_PONG,
+		STOP
+	}
 
 	public void StartPath()
 	{
@@ -24,7 +30,18 @@ public class NavPath : MonoBehaviour
 		// check if noode index is at the end of the path
 		if (index == path.Count - 1)
 		{
-			SetRandomEndNode();
+			if(endAction == EndAction.STOP)
+			{
+				return null;
+			}
+			else if (endAction == EndAction.PING_PONG)
+			{
+				FlipPath();
+			}
+			else if(endAction == EndAction.RANDOM)
+			{
+				SetRandomEndNode();
+			}
 			// generate new path
 			GeneratePath();
 
@@ -35,6 +52,13 @@ public class NavPath : MonoBehaviour
 		NavNode nextNode = path[index + 1];
 
 		return nextNode;
+	}
+
+	private void FlipPath()
+	{
+		NavNode tempNode = startNode;
+		startNode = endNode;
+		endNode = tempNode;
 	}
 
 	private void SetRandomEndNode()
@@ -51,7 +75,7 @@ public class NavPath : MonoBehaviour
 	private void GeneratePath()
 	{
 		NavNode.ResetNodes();
-		Path.Dijkstra(startNode, endNode, ref path);
+		Path.AStar(startNode, endNode, ref path);
 	}
 
 	private void OnDrawGizmos()
