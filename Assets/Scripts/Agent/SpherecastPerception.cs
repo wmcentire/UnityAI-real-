@@ -19,6 +19,7 @@ public class SpherecastPerception : Perception
             // cast ray from transform position towards direction 
 
             Ray ray = new Ray(raycastTransform.position, raycastTransform.rotation * direction);
+            Debug.DrawRay(ray.origin, ray.direction * distance);
             if (Physics.SphereCast(ray, radius, out RaycastHit raycastHit, distance))
             {
                 // don't perceive self 
@@ -27,6 +28,8 @@ public class SpherecastPerception : Perception
 
                 if (tagName == "" || raycastHit.collider.CompareTag(tagName))
                 {
+                    Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
+
                     // add game object if ray hit and tag matches 
                     result.Add(raycastHit.collider.gameObject);
                 }

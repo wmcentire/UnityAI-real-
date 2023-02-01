@@ -17,10 +17,14 @@ public class StateMachine
 	{
 		State newState = states[name];
 		if (newState == null || newState == currentState) return;
+		currentState?.OnExit();
+		currentState = newState;
+		currentState?.OnUpdate();
 	}
 
 	public void AddState(State state)
 	{
-
+		if (states.ContainsKey(state.name)) return;
+		states[state.name] = state;
 	}
 }
