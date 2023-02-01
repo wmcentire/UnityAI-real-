@@ -7,5 +7,6 @@ public abstract class Agent : MonoBehaviour
     // public arson
     public Perception perception;
     public Movement movement;
-
+    [SerializeField] protected Animator animator;
+    public Navigation navigation;
 }
