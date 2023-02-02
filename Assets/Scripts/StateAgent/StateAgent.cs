@@ -7,6 +7,7 @@ public class StateAgent : Agent
 
     public StateMachine stateMachine = new StateMachine();
     public GameObject[] percieved;
+    public Camera mainCamera;
     void Start()
     {
         stateMachine.AddState(new IdleState(this));
@@ -20,6 +21,11 @@ public class StateAgent : Agent
         percieved = perception.GetGameObjects();
         stateMachine.Update();
 
+        if(navigation.targetNode != null)
+        {
+            movement.MoveTowards(navigation.targetNode.transform.position);
+        }
+
         if (Input.GetKey(KeyCode.Space))
         {
             animator.SetFloat("speed", 0.5f);
@@ -28,5 +34,16 @@ public class StateAgent : Agent
         {
             animator.SetFloat("speed", 0);
         }
+    }
+
+    private void OnGUI()
+    {
+        Vector3 point = mainCamera.WorldToScreenPoint(transform.position);
+        GUI.backgroundColor = Color.black;
+        GUI.skin.label.alignment = TextAnchor.MiddleCenter;
+        Rect rect = new Rect(0, 0, 100, 20);
+        rect.x = point.x - (rect.width / 2);
+        rect.y = Screen.height - point.y - rect.height - 20;
+        GUI.Label(rect, stateMachine.currentState.name);
     }
 }

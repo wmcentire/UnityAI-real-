@@ -5,6 +5,7 @@ using UnityEngine;
 public class StateMachine
 {
 	public State currentState { get; set; }
+	public Camera mainCamera { get; set; }
 
 	private Dictionary<string, State> states = new Dictionary<string, State>();
 
@@ -27,4 +28,6 @@ public class StateMachine
 		if (states.ContainsKey(state.name)) return;
 		states[state.name] = state;
 	}
+
+   
 }
