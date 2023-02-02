@@ -20,9 +20,11 @@ public class StateAgent : Agent
     {
         percieved = perception.GetGameObjects();
         stateMachine.Update();
+        
 
         if(navigation.targetNode != null)
         {
+            Debug.Log("move");
             movement.MoveTowards(navigation.targetNode.transform.position);
         }
 

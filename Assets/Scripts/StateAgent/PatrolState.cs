@@ -13,6 +13,7 @@ public class PatrolState : State
     {
         owner.movement.Resume();
         owner.navigation.targetNode = owner.navigation.GetNearestNode();
+        Debug.Log(owner.navigation.targetNode);
     }
 
     public override void OnExit()

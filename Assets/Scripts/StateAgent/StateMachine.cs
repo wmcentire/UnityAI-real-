@@ -16,11 +16,11 @@ public class StateMachine
 
 	public void StartState(string name)
 	{
-		State newState = states[name];
+        State newState = states[name];
 		if (newState == null || newState == currentState) return;
 		currentState?.OnExit();
 		currentState = newState;
-		currentState?.OnUpdate();
+		currentState?.OnEnter();
 	}
 
 	public void AddState(State state)
