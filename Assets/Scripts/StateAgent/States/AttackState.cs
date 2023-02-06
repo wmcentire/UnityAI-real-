@@ -17,7 +17,7 @@ public class AttackState : State
     {
         owner.navigation.targetNode = null;
         owner.movement.Stop();
-        owner.animator.SetTrigger("attack");
+        owner.animator.SetTrigger("Attack");
 
         AnimationClip[] clips = owner.animator.runtimeAnimatorController.animationClips;
 
