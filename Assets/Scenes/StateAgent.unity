@@ -1379,8 +1379,19 @@ MonoBehaviour:
   movement: {fileID: 912308046}
   animator: {fileID: 1468440360}
   navigation: {fileID: 912308047}
-  percieved: []
-  mainCamera: {fileID: 963194227}
+  perceived: []
+  health:
+    value: 0
+  timer:
+    value: 0
+  enemyDistance:
+    value: 0
+  enemySeen:
+    value: 0
+  animationDone:
+    value: 0
+  atDestination:
+    value: 0
 --- !u!195 &912308045
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1417,7 +1428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 5
   minSpeed: 5
-  turnRate: 5
+  turnRate: 360
   maxForce: 5
   navMeshAgent: {fileID: 912308045}
 --- !u!114 &912308047

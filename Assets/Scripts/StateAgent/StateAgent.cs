@@ -73,14 +73,7 @@ public class StateAgent : Agent
             movement.MoveTowards(navigation.targetNode.transform.position);
         }
 
-        if (Input.GetKey(KeyCode.Space))
-        {
-            animator.SetFloat("speed", 0.5f);
-        }
-        else
-        {
-            animator.SetFloat("speed", 0);
-        }
+        animator.SetFloat("speed", movement.velocity.magnitude);
     }
 
     private void OnGUI()
