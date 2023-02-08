@@ -22,7 +22,7 @@ public class AttackState : State
         AnimationClip[] clips = owner.animator.runtimeAnimatorController.animationClips;
 
         AnimationClip clip = clips.FirstOrDefault<AnimationClip>(clip => clip.name == "Punch");
-        timer = (clip != null) ? clip.length : 1;
+        owner.timer.value = (clip != null) ? clip.length : 1;
     }
 
     public override void OnExit()

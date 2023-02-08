@@ -15,7 +15,7 @@ public class PatrolState : State
         owner.movement.Resume();
         owner.navigation.targetNode = owner.navigation.GetNearestNode();
         Debug.Log(owner.navigation.targetNode);
-        timer = Random.Range(5,10);
+        owner.timer.value = (float)Random.Range(5,10);
     }
 
     public override void OnExit()
@@ -25,14 +25,5 @@ public class PatrolState : State
 
     public override void OnUpdate()
     {
-        if (owner.percieved.Length > 0)
-        {
-            owner.stateMachine.StartState(nameof(ChaseState));
-        }
-        timer -= Time.deltaTime;
-        if(timer <= 0)
-        {
-            owner.stateMachine.StartState(nameof(WanderState));
-        }
     }
 }
