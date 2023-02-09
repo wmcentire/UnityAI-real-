@@ -37,7 +37,8 @@ public class StateAgent : Agent
         Condition timerExpiredCondition = new FloatCondition(timer, Condition.Predicate.LESS_EQUAL, 0);
         Condition enemySeenCondition = new BoolCondition(enemySeen, true);
         Condition enemyNotSeenCondition = new BoolCondition(enemySeen, false);
-        Condition healthLowCondition = new FloatCondition(health, Condition.Predicate.LESS_EQUAL, 30);
+        Condition enemyNear = new FloatCondition(enemyDistance, Condition.Predicate.LESS_EQUAL, 2);
+        Condition healthLowCondition = new FloatCondition(health, Condition.Predicate.LESS_EQUAL, 50);
         Condition healthOkCondition = new FloatCondition(health, Condition.Predicate.GREATER, 30);
         Condition deathCondition = new FloatCondition(health, Condition.Predicate.LESS_EQUAL, 0);
         Condition animationDoneCondition = new BoolCondition(animationDone, true);
@@ -46,8 +47,15 @@ public class StateAgent : Agent
         // create transitions
         stateMachine.AddTransition(nameof(IdleState), new Transition(new Condition[] { timerExpiredCondition }), nameof(PatrolState));
         stateMachine.AddTransition(nameof(IdleState), new Transition(new Condition[] { enemySeenCondition }), nameof(ChaseState));
+        stateMachine.AddTransition(nameof(IdleState), new Transition(new Condition[] { enemySeenCondition, healthLowCondition }), nameof(FleeState));
+
         stateMachine.AddTransition(nameof(PatrolState), new Transition(new Condition[] { timerExpiredCondition }), nameof(WanderState));
         stateMachine.AddTransition(nameof(PatrolState), new Transition(new Condition[] { enemySeenCondition }), nameof(ChaseState));
+        stateMachine.AddTransition(nameof(PatrolState), new Transition(new Condition[] { enemySeenCondition, healthLowCondition }), nameof(FleeState));
+
+        stateMachine.AddTransition(nameof(ChaseState), new Transition(new Condition[] { enemySeenCondition, healthLowCondition }), nameof(FleeState));
+        stateMachine.AddTransition(nameof(ChaseState), new Transition(new Condition[] { enemyNear }), nameof(AttackState));
+        stateMachine.AddTransition(nameof(ChaseState), new Transition(new Condition[] { enemyNotSeenCondition }), nameof(IdleState));
         
         stateMachine.AddAnyTransition(new Transition(new Condition[] { deathCondition }), nameof(DeadState));
 

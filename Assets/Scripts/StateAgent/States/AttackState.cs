@@ -31,7 +31,7 @@ public class AttackState : State
 
             if(collider.gameObject.TryGetComponent<StateAgent>(out var component))
             {
-                component.health.value -= Random.Range(20,50);
+                component.health.value -= Random.Range(20,30);
             }
 
         }
