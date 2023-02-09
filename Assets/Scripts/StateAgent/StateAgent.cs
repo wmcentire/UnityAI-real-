@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.StateAgent.States;
 using UnityEngine;
 
 public class StateAgent : Agent
@@ -29,6 +30,8 @@ public class StateAgent : Agent
         stateMachine.AddState(new ChaseState(this));
         stateMachine.AddState(new WanderState(this));
         stateMachine.AddState(new AttackState(this));
+        stateMachine.AddState(new DeadState(this));
+        stateMachine.AddState(new FleeState(this));
 
         // create conditions
         Condition timerExpiredCondition = new FloatCondition(timer, Condition.Predicate.LESS_EQUAL, 0);
@@ -45,7 +48,8 @@ public class StateAgent : Agent
         stateMachine.AddTransition(nameof(IdleState), new Transition(new Condition[] { enemySeenCondition }), nameof(ChaseState));
         stateMachine.AddTransition(nameof(PatrolState), new Transition(new Condition[] { timerExpiredCondition }), nameof(WanderState));
         stateMachine.AddTransition(nameof(PatrolState), new Transition(new Condition[] { enemySeenCondition }), nameof(ChaseState));
-
+        
+        stateMachine.AddAnyTransition(new Transition(new Condition[] { deathCondition }), nameof(DeadState));
 
 
 

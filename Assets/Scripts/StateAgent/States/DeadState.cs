@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts.StateAgent.States
 {
@@ -15,17 +16,21 @@ namespace Assets.Scripts.StateAgent.States
 
         public override void OnEnter()
         {
-            throw new NotImplementedException();
+            owner.animator.SetBool("isDead", true);
+            owner.movement.Stop();
         }
 
         public override void OnExit()
         {
-            throw new NotImplementedException();
+
         }
 
         public override void OnUpdate()
         {
-            throw new NotImplementedException();
+            if (owner.animationDone)
+            {
+                GameObject.Destroy(owner.gameObject,1);
+            }
         }
     }
 }
