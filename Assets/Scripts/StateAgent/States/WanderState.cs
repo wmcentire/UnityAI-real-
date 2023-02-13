@@ -7,7 +7,6 @@ public class WanderState : State
 {
     private Vector3 target;
 
-    private float timer;
 
     public WanderState(StateAgent owner) : base(owner)
     {
@@ -20,7 +19,7 @@ public class WanderState : State
         owner.movement.Resume();
         // create random target position around owner 
         target = owner.transform.position + Quaternion.AngleAxis(Random.Range(0,360),Vector3.up) * Vector3.forward * 5;
-        timer = Random.Range(3,6);
+        owner.movement.MoveTowards(target);
     }
 
     public override void OnExit()
@@ -34,11 +33,6 @@ public class WanderState : State
         Debug.DrawLine(owner.transform.position, target);
         owner.movement.MoveTowards(target);
         if (owner.movement.velocity.magnitude <= 0) 
-        {
-            owner.stateMachine.StartState(nameof(IdleState));
-        }
-        timer -= Time.deltaTime;
-        if(timer <= 0)
         {
             owner.stateMachine.StartState(nameof(IdleState));
         }

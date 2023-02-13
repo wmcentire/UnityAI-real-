@@ -56,7 +56,15 @@ public class StateAgent : Agent
         stateMachine.AddTransition(nameof(ChaseState), new Transition(new Condition[] { enemySeenCondition, healthLowCondition }), nameof(FleeState));
         stateMachine.AddTransition(nameof(ChaseState), new Transition(new Condition[] { enemyNear }), nameof(AttackState));
         stateMachine.AddTransition(nameof(ChaseState), new Transition(new Condition[] { enemyNotSeenCondition }), nameof(IdleState));
-        
+
+        stateMachine.AddTransition(nameof(WanderState), new Transition(new Condition[] { enemyNear }), nameof(AttackState));
+        stateMachine.AddTransition(nameof(WanderState), new Transition(new Condition[] { enemySeenCondition, healthLowCondition }), nameof(FleeState));
+        stateMachine.AddTransition(nameof(WanderState), new Transition(new Condition[] { enemyNotSeenCondition, timerExpiredCondition }), nameof(IdleState));
+
+        stateMachine.AddTransition(nameof(AttackState), new Transition(new Condition[] { animationDoneCondition }), nameof(ChaseState));
+
+        stateMachine.AddTransition(nameof(FleeState), new Transition(new Condition[] { enemyNotSeenCondition }), nameof(IdleState));
+
         stateMachine.AddAnyTransition(new Transition(new Condition[] { deathCondition }), nameof(DeadState));
 
 
@@ -74,8 +82,7 @@ public class StateAgent : Agent
         enemyDistance.value = (enemySeen) ? (Vector3.Distance(transform.position, perceived[0].transform.position)) : float.MaxValue;
         timer.value -= Time.deltaTime;
         atDestination.value = ((movement.destination - transform.position).sqrMagnitude <= 1);
-        animationDone.value = (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && !animator.IsInTransition(0));
-
+        animationDone.value = (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.8f && !animator.IsInTransition(0));
         stateMachine.Update();
         
 
